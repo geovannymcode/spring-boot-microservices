@@ -1,5 +1,5 @@
 version: "3.8"
-name: 'spring-boot-microservices-course'
+name: 'spring-boot-microservices'
 services:
   catalog-db:
     image: postgres:16-alpine
