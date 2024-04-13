@@ -3,8 +3,6 @@ package com.geovannycode.bookstore.catalog.web.controllers;
 import com.geovannycode.bookstore.catalog.domain.PagedResult;
 import com.geovannycode.bookstore.catalog.domain.Product;
 import com.geovannycode.bookstore.catalog.domain.ProductService;
-import lombok.Getter;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +17,9 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+
     @GetMapping
-    PagedResult<Product> getProducts(@RequestParam(name="page", defaultValue = "1") int pageNo) {
+    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
         return productService.getProducts(pageNo);
     }
 }
