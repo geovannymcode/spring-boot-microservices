@@ -1,6 +1,7 @@
 package com.geovannycode.bookstore.catalog.domain;
 
 import com.geovannycode.bookstore.catalog.ApplicationProperties;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,5 +34,9 @@ public class ProductService {
                 productsPage.isLast(),
                 productsPage.hasNext(),
                 productsPage.hasPrevious());
+    }
+
+    public Optional<Product> getProductByCode(String code) {
+        return productRepository.findByCode(code).map(ProductMapper::toProduct);
     }
 }
