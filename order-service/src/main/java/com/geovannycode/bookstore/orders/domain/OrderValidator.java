@@ -4,11 +4,10 @@ import com.geovannycode.bookstore.orders.clients.catalog.Product;
 import com.geovannycode.bookstore.orders.clients.catalog.ProductServiceClient;
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderRequest;
 import com.geovannycode.bookstore.orders.domain.models.OrderItem;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
 
 @Component
 public class OrderValidator {
