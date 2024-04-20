@@ -24,13 +24,13 @@ public class OrderControllerTests extends AbstractIT {
     class CreateOrderTests {
         @Test
         void shouldCreateOrderSuccessfully() {
-            mockGetProductByCode("P100", "Product 1", new BigDecimal("25.50"));
+            mockGetProductByCode("P100", "Product 1", new BigDecimal("34.40"));
             var payload =
                     """
                         {
                             "customer" : {
-                                "name": "Geovanny",
-                                "email": "geovanny@gmail.com",
+                                "name": "Elena",
+                                "email": "elena@gmail.com",
                                 "phone": "999999999"
                             },
                             "deliveryAddress" : {
@@ -45,7 +45,7 @@ public class OrderControllerTests extends AbstractIT {
                                 {
                                     "code": "P100",
                                     "name": "Product 1",
-                                    "price": 25.50,
+                                    "price": 34.40,
                                     "quantity": 1
                                 }
                             ]
