@@ -3,6 +3,7 @@ name: 'spring-boot-microservices'
 services:
   catalog-service:
     image: gmendozag/bookstore-catalog-service
+    platform: linux/amd64
     container_name: catalog-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
