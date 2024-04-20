@@ -4,6 +4,7 @@ import com.geovannycode.bookstore.orders.domain.models.CreateOrderRequest;
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderResponse;
 import com.geovannycode.bookstore.orders.domain.models.OrderCreatedEvent;
 import com.geovannycode.bookstore.orders.domain.models.OrderStatus;
+import com.geovannycode.bookstore.orders.domain.models.OrderSummary;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,10 @@ public class OrderService {
         OrderCreatedEvent orderCreatedEvent = OrderEventMapper.buildOrderCreatedEvent(savedOrder);
         orderEventService.save(orderCreatedEvent);
         return new CreateOrderResponse(savedOrder.getOrderNumber());
+    }
+
+    public List<OrderSummary> findOrders(String userName) {
+        return orderRepository.findByUserName(userName);
     }
 
     public void processNewOrders() {
