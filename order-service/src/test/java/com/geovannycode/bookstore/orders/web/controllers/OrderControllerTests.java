@@ -1,21 +1,24 @@
 package com.geovannycode.bookstore.orders.web.controllers;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.CoreMatchers.notNullValue;
 
 import com.geovannycode.bookstore.orders.AbstractIT;
 import com.geovannycode.bookstore.orders.testdata.TestDataFactory;
 import io.restassured.http.ContentType;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
+// @Sql("/test-orders.sql")
 public class OrderControllerTests extends AbstractIT {
 
     @Nested
     class CreateOrderTests {
         @Test
         void shouldCreateOrderSuccessfully() {
+            mockGetProductByCode("P100", "Product 1", new BigDecimal("25.50"));
             var payload =
                     """
                         {
@@ -27,10 +30,10 @@ public class OrderControllerTests extends AbstractIT {
                             "deliveryAddress" : {
                                 "addressLine1": "HNO 123",
                                 "addressLine2": "Kukatpally",
-                                "city": "Barranquilla",
-                                "state": "Atlantico",
-                                "zipCode": "080001",
-                                "country": "Colombia"
+                                "city": "Hyderabad",
+                                "state": "Telangana",
+                                "zipCode": "500072",
+                                "country": "India"
                             },
                             "items": [
                                 {
