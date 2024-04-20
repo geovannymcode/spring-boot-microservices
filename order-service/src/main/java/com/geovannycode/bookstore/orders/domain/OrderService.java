@@ -3,9 +3,11 @@ package com.geovannycode.bookstore.orders.domain;
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderRequest;
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderResponse;
 import com.geovannycode.bookstore.orders.domain.models.OrderCreatedEvent;
+import com.geovannycode.bookstore.orders.domain.models.OrderDTO;
 import com.geovannycode.bookstore.orders.domain.models.OrderStatus;
 import com.geovannycode.bookstore.orders.domain.models.OrderSummary;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,12 @@ public class OrderService {
 
     public List<OrderSummary> findOrders(String userName) {
         return orderRepository.findByUserName(userName);
+    }
+
+    public Optional<OrderDTO> findUserOrder(String userName, String orderNumber) {
+        return orderRepository
+                .findByUserNameAndOrderNumber(userName, orderNumber)
+                .map(OrderMapper::convertToDTO);
     }
 
     public void processNewOrders() {

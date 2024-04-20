@@ -20,6 +20,14 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
         """)
     List<OrderSummary> findByUserName(String userName);
 
+    @Query(
+            """
+        select distinct o
+        from OrderEntity o left join fetch o.items
+        where o.userName = :userName and o.orderNumber = :orderNumber
+        """)
+    Optional<OrderEntity> findByUserNameAndOrderNumber(String userName, String orderNumber);
+
     default void updateOrderStatus(String orderNumber, OrderStatus status) {
         OrderEntity order = this.findByOrderNumber(orderNumber).orElseThrow();
         order.setStatus(status);
