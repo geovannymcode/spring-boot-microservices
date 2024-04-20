@@ -2,6 +2,7 @@ package com.geovannycode.bookstore.orders.domain;
 
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderRequest;
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderResponse;
+import com.geovannycode.bookstore.orders.domain.models.OrderCreatedEvent;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,13 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderValidator orderValidator;
+    private final OrderEventService orderEventService;
 
-    public OrderService(OrderRepository orderRepository, OrderValidator orderValidator) {
+    public OrderService(
+            OrderRepository orderRepository, OrderValidator orderValidator, OrderEventService orderEventService) {
         this.orderRepository = orderRepository;
         this.orderValidator = orderValidator;
+        this.orderEventService = orderEventService;
     }
 
     public CreateOrderResponse createOrder(String userName, CreateOrderRequest request) {
@@ -28,6 +32,8 @@ public class OrderService {
         newOrder.setUserName(userName);
         OrderEntity savedOrder = this.orderRepository.save(newOrder);
         log.info("Created Order with orderNumber={}", savedOrder.getOrderNumber());
+        OrderCreatedEvent orderCreatedEvent = OrderEventMapper.buildOrderCreatedEvent(savedOrder);
+        orderEventService.save(orderCreatedEvent);
         return new CreateOrderResponse(savedOrder.getOrderNumber());
     }
 }
