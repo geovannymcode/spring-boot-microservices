@@ -77,3 +77,19 @@ services:
       resources:
         limits:
           memory: 700m
+
+  api-gateway:
+    image: gmendozag/bookstore-api-gateway
+    container_name: api-gateway
+    platform: linux/arm64
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CATALOG_SERVICE_URL=http://catalog-service:8081
+      - ORDER_SERVICE_URL=http://order-service:8082
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 700m
