@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProductController {
 
     @GetMapping
-    String index(){
+    String index() {
         return "redirect:/products";
     }
 
     @GetMapping("/products")
-    String productPage(){
+    String productPage() {
         return "products";
     }
 }
