@@ -3,7 +3,7 @@ name: 'spring-boot-microservices'
 services:
   catalog-service:
     image: gmendozag/bookstore-catalog-service
-    platform: linux/amd64
+    platform: linux/arm64
     container_name: catalog-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -23,7 +23,7 @@ services:
 
   order-service:
     image: gmendozag/bookstore-order-service
-    platform: linux/amd64
+    platform: linux/arm64
     container_name: order-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -50,7 +50,7 @@ services:
 
   notification-service:
     image: gmendozag/bookstore-notification-service
-    platform: linux/amd64
+    platform: linux/arm64
     container_name: notification-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
