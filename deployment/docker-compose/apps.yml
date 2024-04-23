@@ -1,4 +1,3 @@
-version: "3.8"
 name: 'spring-boot-microservices'
 services:
   catalog-service:
@@ -88,6 +87,21 @@ services:
       - ORDER_SERVICE_URL=http://order-service:8082
     ports:
       - "8989:8989"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  bookstore-webapp:
+    image: gmendozag/bookstore-webapp
+    container_name: bookstore-webapp
+    platform: linux/arm64
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - BOOKSTORE_API_GATEWAY_URL=http://api-gateway:8989
+    ports:
+      - "8080:8080"
     restart: unless-stopped
     deploy:
       resources:
