@@ -37,8 +37,8 @@ import org.wiremock.integrations.testcontainers.WireMockContainer;
 public abstract class AbstractIT {
     static final String CLIENT_ID = "bookstore-webapp";
     static final String CLIENT_SECRET = "ABs3R4KzGIDfReWYT7ZWjL67y7YNfX6Q";
-    static final String USERNAME = "elena";
-    static final String PASSWORD = "elena1234";
+    static final String USERNAME = "geovanny";
+    static final String PASSWORD = "geovanny1234";
 
     @Autowired
     OAuth2ResourceServerProperties oAuth2ResourceServerProperties;
