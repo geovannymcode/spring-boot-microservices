@@ -7,6 +7,7 @@ import com.geovannycode.bookstore.orders.domain.models.CreateOrderRequest;
 import com.geovannycode.bookstore.orders.domain.models.CreateOrderResponse;
 import com.geovannycode.bookstore.orders.domain.models.OrderDTO;
 import com.geovannycode.bookstore.orders.domain.models.OrderSummary;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/orders")
+@SecurityRequirement(name = "security_auth")
 public class OrderController {
 
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);

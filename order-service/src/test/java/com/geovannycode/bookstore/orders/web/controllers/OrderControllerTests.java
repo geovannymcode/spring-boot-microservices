@@ -17,41 +17,42 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 
-@Sql("/db/migration/test-orders.sql")
-public class OrderControllerTests extends AbstractIT {
+@Sql("/test-orders.sql")
+class OrderControllerTests extends AbstractIT {
 
     @Nested
     class CreateOrderTests {
         @Test
         void shouldCreateOrderSuccessfully() {
-            mockGetProductByCode("P100", "Product 1", new BigDecimal("34.40"));
+            mockGetProductByCode("P100", "Product 1", new BigDecimal("25.50"));
             var payload =
                     """
                         {
                             "customer" : {
-                                "name": "Elena",
-                                "email": "elena@gmail.com",
+                                "name": "Geovanny",
+                                "email": "geovanny@gmail.com",
                                 "phone": "999999999"
                             },
                             "deliveryAddress" : {
                                 "addressLine1": "HNO 123",
                                 "addressLine2": "Kukatpally",
-                                "city": "Hyderabad",
-                                "state": "Telangana",
+                                "city": "Barranquilla",
+                                "state": "Atlantico",
                                 "zipCode": "500072",
-                                "country": "India"
+                                "country": "Colombia"
                             },
                             "items": [
                                 {
                                     "code": "P100",
                                     "name": "Product 1",
-                                    "price": 34.40,
+                                    "price": 25.50,
                                     "quantity": 1
                                 }
                             ]
                         }
                     """;
             given().contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer " + getToken())
                     .body(payload)
                     .when()
                     .post("/api/orders")
@@ -64,6 +65,7 @@ public class OrderControllerTests extends AbstractIT {
         void shouldReturnBadRequestWhenMandatoryDataIsMissing() {
             var payload = TestDataFactory.createOrderRequestWithInvalidCustomer();
             given().contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer " + getToken())
                     .body(payload)
                     .when()
                     .post("/api/orders")
@@ -77,6 +79,7 @@ public class OrderControllerTests extends AbstractIT {
         @Test
         void shouldGetOrdersSuccessfully() {
             List<OrderSummary> orderSummaries = given().when()
+                    .header("Authorization", "Bearer " + getToken())
                     .get("/api/orders")
                     .then()
                     .statusCode(200)
@@ -95,6 +98,7 @@ public class OrderControllerTests extends AbstractIT {
         @Test
         void shouldGetOrderSuccessfully() {
             given().when()
+                    .header("Authorization", "Bearer " + getToken())
                     .get("/api/orders/{orderNumber}", orderNumber)
                     .then()
                     .statusCode(200)
